@@ -1,17 +1,13 @@
 import './Alljobs.css'
 import React,{useState,useEffect} from 'react'
 import { useDispatch } from 'react-redux';
-import { setJob } from '../GlobalStates/User/UserSlice'
+import { setJob } from '../GlobalStates/Job/JobSlice'
 import { useNavigate } from 'react-router-dom';
 
 const Alljobs=()=>{
     const navigate=useNavigate();
     const dispatch = useDispatch();
-
     const [alljobs,setAlljobs]=useState([]);
-
-    
-    
     const token='86|0CMwHKCZZ0Qg0b9sXD2EAwIjBLG7ne4tlcV2AHtY';
 
     let getJobs = async() =>{
@@ -32,8 +28,6 @@ const Alljobs=()=>{
         dispatch(setJob(job));
         navigate(link);
     }
-    
-    
     return(
         <>
            <div className='alljobs mt-2'>

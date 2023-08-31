@@ -2,8 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 const Updatejob=()=>{
-    const job = useSelector(state => state.user.job);
-    console.log('job for update',job)
+    const job = useSelector(state => state.job.job);
     const navigate= useNavigate();
     const[job_name,setName]=useState(job?job.job_name:'');
     const[job_description,setDescription]=useState(job?job.job_description:'');
@@ -77,7 +76,7 @@ const Updatejob=()=>{
                         <input type="number" className="form-control" id="job_category_id" required value={job_category_id} onChange={(e) => setCat(e.target.value)} />   
                     </div>
                     <select className="form-select mb-3" aria-label="Default select example" value={is_active} onChange={(e) => setActive(e.target.value)}  >
-                        <option value=''>Status of Job</option>
+                        <option value=" ">Status of Job</option>
                         <option value="1">Open</option>
                         <option value="0">Close</option>
                     </select>                 
