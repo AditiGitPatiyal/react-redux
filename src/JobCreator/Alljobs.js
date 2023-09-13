@@ -1,40 +1,27 @@
 import './Alljobs.css'
-import React,{useState,useEffect} from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux';
 import { setJob } from '../GlobalStates/Job/JobSlice'
 import { useNavigate } from 'react-router-dom';
+import useFetch from '../useFetch';
 
 const Alljobs=()=>{
     const navigate=useNavigate();
     const dispatch = useDispatch();
-    const [alljobs,setAlljobs]=useState([]);
     const token='86|0CMwHKCZZ0Qg0b9sXD2EAwIjBLG7ne4tlcV2AHtY';
-
-    let getJobs = async() =>{
-        let response = await fetch('http://scholarshiftapi.divasdoor.com/api/getAllJob',{
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 
-                `Bearer ${token}`  
-        }});
-        let result = await response.json()
-        setAlljobs(result.data);    
-    }
-    useEffect(()=>{
-        getJobs();
-    },[]);
+    const {alljobs}=useFetch(token);
     const setValue=(job)=>{
         var link=`/job-creator/update-job`
         dispatch(setJob(job));
         navigate(link);
     }
     return(
-        <>
+        <> 
            <div className='alljobs mt-2'>
            <h1 className='text-center' style={{color:'#f0602d'}}>ALL JOBS</h1>
              <div className='row'>
                 {
-                    alljobs.map((job,idx)=>
+                 alljobs && alljobs.map((job,idx)=>
                     
                     <div className='col-lg-4 col-sm-6 col-xs-12' key={idx}>
                         <div className='card p-3 my-3'>        

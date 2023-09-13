@@ -1,27 +1,14 @@
 import './Allcatjobs.css'
-import React,{useState,useEffect} from 'react'
+import React from 'react'
 import { useSelector } from 'react-redux';
+import useFetch from '../useFetch';
+
 
 
 const Allcatjobs=()=>{
-    const [alljobs,setAlljobs]=useState([]);
     const user = useSelector(state => state.user.user);
-    console.log(user);
     const token='118|ttDElQiSCSeeBuGkRVO7eDqTRx88Brww0mQtKCJu';
-
-    let getJobs = async() =>{
-        let response = await fetch('http://scholarshiftapi.divasdoor.com/api/getAllJob',{
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 
-                `Bearer ${token}`  
-        }});
-        let result = await response.json()
-        setAlljobs(result.data);    
-    }
-    useEffect(()=>{
-        getJobs();
-    },[]);
+    const {alljobs}=useFetch(token);;
     const Applyjob= async(job_id)=>{
         const data={
             'job_id':job_id,
@@ -52,7 +39,7 @@ const Allcatjobs=()=>{
            <h1 className='text-center' style={{color:'#f0602d'}}>ALL JOBS</h1>
              <div className='row'>
                 {
-                    alljobs.map((job,idx)=>
+                 alljobs && alljobs.map((job,idx)=>
                     <div className='col-lg-4 col-sm-6 col-xs-12' key={idx}>
                         <div className='card p-3 mt-3'>
                             <p>{job.id}.</p>
